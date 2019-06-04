@@ -3,12 +3,17 @@
   <div class="detail">
     <div class="name"><h3>{{product.code}}</h3>-<h4>({{product.name}})</h4></div>
     <img width="300" alt="商品照片" [src]="product.ImageUrl" >
-    <div class="price" [class]="product.isPositivechange() ? 'positive' : 'negative'" >售價：$ {{product.price}}</div>
+    <!-- <div class="price" [class]="product.isPositivechange() ? 'positive' : 'negative'" >售價：$ {{product.price}}</div> -->
+    <div class="price" [ngClass]="ecClasses" >售價：$ {{product.price}}</div>
   </div>
 
   <br>
   <div>
-    <button [disabled]="product.quantityInCart == 0" (click)="decrementInCart()">減買</button>
+    <!-- <button [disabled]="product.quantityInCart == 0" (click)="decrementInCart()">減買</button> -->
+    <button *ngIf="product.quantityInCart > 0" (click)="decrementInCart()">減買-</button>
+    <select>
+      <option [value]="qty" *ngFor="let qty of quantities">{{qty}}</option>
+    </select>
     <span>購物車有{{product.quantityInCart}}件</span>
     <button (click)="incrementInCart()">加買+</button>
   </div>
