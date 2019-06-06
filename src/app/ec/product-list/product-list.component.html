@@ -1,0 +1,18 @@
+<p>
+  product-list works!
+</p>
+
+<div class="stock-con" *ngFor="let product of products; even as isEven; index as i">
+  <div class="detail">
+    <div class="name"><h3>{{product.code}}</h3>-<h4>({{product.name}})</h4></div>
+    <img width="300" alt="商品照片" [src]="product.ImageUrl" >
+    <!-- <div class="price" [class]="product.isPositivechange() ? 'positive' : 'negative'" >售價：$ {{product.price}}</div> -->
+    <div class="price" >售價：$ {{product.price}}</div>
+  </div>
+  <br>
+  <div>
+    <button *ngIf="product.quantityInCart > 0" (click)="decrementInCart($event,i)">減買-</button>
+    <span>購物車有{{product.quantityInCart}}件</span>
+    <button (click)="incrementInCart($event,i) ">加買+</button>
+  </div>
+</div>
