@@ -1,0 +1,65 @@
+<h4 class="error">{{message}}</h4>
+<div class="form-group">
+    <form (ngSubmit)="createProduct(productForm)" #productForm="ngForm">
+        <div ngModelGroup="product">
+            <div class="product-name">
+                <input type="text"
+                        placeholder="商品名稱"
+                        required
+                        #productName="ngModel"
+                        name="name"
+                        ngModel>
+                        <!-- 使用ngModel一定要加name屬性 -->
+            </div>
+            <div class="error" *ngIf="(productName.dirty || message) && productName.invalid">
+                商品名稱不可空白
+              <!-- 只有一個檢查規則,不需再判斷為何種錯誤 -->
+                <!-- <div *ngIf="productName?.errors.required">商品名稱不可空白</div> -->
+            </div>
+            <div class="product-code">
+                <input type="text"
+                        placeholder="商品代號"
+                        required
+                        name="code"
+                        ngModel
+                        #productCode="ngModel">
+                        <!-- 使用ngModel一定要加name屬性 -->
+            </div>
+            <div class="error" *ngIf="(productCode.dirty || message) && productCode.invalid">
+                商品代號不可空白
+              <!-- 只有一個檢查規則,不需再判斷為何種錯誤 -->
+            </div>
+            <div class="stock-price">
+                <input type="number"
+                      placeholder="售價"
+                      name=price
+                      required
+                      ngModel>
+            </div>
+            <!-- 若照片位址為網址形式,輸入與檢查規則如下
+            <div>
+                <input type="text"
+                        ngModel
+                        name="imageUrl"
+                        placeholder="Product Image URL"
+                        #productImageUrl="ngModel"
+                        pattern="^http(s?)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$"
+                        required>
+              </div>
+              <div class="error" *ngIf="(productImageUrl.dirty || message) && productImageUrl.invalid">
+                <div *ngIf="productImageUrl.errors.required">
+                  Product Image URL is required
+                </div>
+                <div *ngIf="productImageUrl.errors.pattern">
+                  Product Image URL does not seem to be a valid URL
+                </div>
+              </div> -->
+
+
+          <div>
+              <button type="submit">建立產品</button>
+          </div>
+        </div>
+    </form>
+</div>
+<h4>Product name is {{product | json}}</h4>
