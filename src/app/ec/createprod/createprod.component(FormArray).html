@@ -1,0 +1,48 @@
+<h4 class="error">{{message}}</h4>
+<div class="form-group">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" >
+           <div formArrayName="mutiProduct">
+              <div *ngFor="let Products of mutiProduct.controls; let i = index"
+                [formGroupName]="i"
+                class="notable-people">
+                <div>Product{{i + 1}}</div>
+                <div>
+                  <input type="text"
+                      placeholder="產品名稱"
+                      formControlName="name">
+                    <div class="error" *ngIf="(Products.get('name').dirty  || message) && Products.get('name').invalid">
+                        產品名稱不可空白
+                    </div>
+                </div>
+                <div>
+                    <input type="text"
+                        placeholder="產品編號"
+                        formControlName="code">
+                    <div class="error" *ngIf="(Products.get('code').dirty  || message) && Products.get('code').invalid">
+                            產品編號不可空白
+                    </div>
+                </div>
+                <div>
+                    <input type="number"
+                        placeholder="售價"
+                        formControlName="price">
+                        <div class="error" *ngIf="(Products.get('price').dirty || message) && Products.get('price').invalid">
+                            <div *ngIf="Products.get('price').errors.required">
+                                售價不可空白
+                            </div>
+                            <div *ngIf="Products.get('price').errors.min">
+                                售價須至少為1
+                            </div>
+                          </div>
+
+                </div>
+                <button type="button" (click)="removeProduct(i)">移除商品</button>
+            </div>
+          </div>
+          <button type="button" (click)="addNewProduct()">新增商品</button>
+          <div>
+              <button type="submit">建立產品</button>
+          </div>
+    </form>
+</div>
+<h4>Product name is {{product | json}}</h4>

@@ -1,46 +1,48 @@
 <h4 class="error">{{message}}</h4>
 <div class="form-group">
-    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" >
-           <div formArrayName="mutiProduct">
-              <div *ngFor="let Products of mutiProduct.controls; let i = index"
-                [formGroupName]="i"
-                class="notable-people">
-                <div>Product{{i + 1}}</div>
-                <div>
+    <form #productForm="ngForm" (ngSubmit)="createProduct(productForm)" >
+                 <div>
                   <input type="text"
                       placeholder="產品名稱"
-                      formControlName="name">
-                    <div class="error" *ngIf="(Products.get('name').dirty  || message) && Products.get('name').invalid">
+                      name="productName"
+                      required
+                      #productName="ngModel"
+                      [(ngModel)]="product.name">
+                    <div class="error" *ngIf="productName.dirty && productName.invalid">
                         產品名稱不可空白
                     </div>
                 </div>
                 <div>
                     <input type="text"
                         placeholder="產品編號"
-                        formControlName="code">
-                    <div class="error" *ngIf="(Products.get('code').dirty  || message) && Products.get('code').invalid">
+                        name="productCode"
+                        required
+                        #productCode="ngModel"
+                      [(ngModel)]="product.code">
+                    <div class="error" *ngIf="productCode.dirty && productCode.invalid">
                             產品編號不可空白
                     </div>
                 </div>
                 <div>
                     <input type="number"
                         placeholder="售價"
-                        formControlName="price">
-                        <div class="error" *ngIf="(Products.get('price').dirty || message) && Products.get('price').invalid">
-                            <div *ngIf="Products.get('price').errors.required">
+                        name="productPrice"
+                        required
+                        min="1"
+                        #productPrice="ngModel"
+                      [(ngModel)]="product.price"
+                        >
+                        <div class="error" *ngIf="productPrice.dirty && productPrice.invalid">
+                            <div *ngIf="productPrice?.errors.required">
                                 售價不可空白
                             </div>
-                            <div *ngIf="Products.get('price').errors.min">
+                            <div *ngIf="productPrice?.errors.min">
                                 售價須至少為1
                             </div>
                           </div>
 
                 </div>
-                <button type="button" (click)="removeProduct(i)">移除商品</button>
-            </div>
-          </div>
-          <button type="button" (click)="addNewProduct()">新增商品</button>
-          <div>
+             <div>
               <button type="submit">建立產品</button>
           </div>
     </form>

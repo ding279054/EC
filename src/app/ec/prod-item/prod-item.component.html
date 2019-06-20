@@ -8,8 +8,8 @@
   </div>
 
   <br>
+  <!-- <button [disabled]="product.quantityInCart == 0" (click)="decrementInCart()">減買</button> -->
   <div>
-    <!-- <button [disabled]="product.quantityInCart == 0" (click)="decrementInCart()">減買</button> -->
     <button *ngIf="product.quantityInCart > 0" (click)="decrementInCart()">減買-</button>
     <select>
       <option [value]="qty" *ngFor="let qty of quantities">{{qty}}</option>
